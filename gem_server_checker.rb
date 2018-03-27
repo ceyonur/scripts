@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
-# This script looks Gemfile.lock and given gem path to check gems are available.
+# This script compares "bundle show" and given gem path to check gems are available.
 # Requirements: Bundler
 def main
   gems_path = 'path/to/gemserver/gems' # The actual directory where gems reside under gemserver
