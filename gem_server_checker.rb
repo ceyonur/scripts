@@ -12,14 +12,17 @@ def main
 
   return 'Gem path not found' unless File.exist?(gems_path)
 
+  puts 'Updating gem server path'
+  `( cd #{gems_path}/ ; git checkout master ; git pull )`
+
   output_arr = output.delete(' ').delete('*').split("\n")
   output_arr.delete_at(0)
   results = {found: [], not_found: []}
   output_arr.each do |gem|
     gem_version = gem[/\((.*?)\)/,1]
     gem_name = gem.gsub(/\((.*?)\)/,'')
-    gem_file = gem_name + '-' + gem_version + '.gem'
-    if File.exist?("#{gems_path}/#{gem_file}")
+    gem_file_wildcard = "#{gems_path}/#{gem_name}-#{gem_version}{-*.gem,.gem}"
+    unless Dir.glob(gem_file_wildcard).empty?
       results[:found] << gem_name + ' ' + gem_version
     else
       results[:not_found] << gem_name + ' ' + gem_version
