@@ -9,8 +9,11 @@ def main
     puts make_color(str,:red)
     return
   end
-
-  return 'Gem path not found' unless File.exist?(gems_path)
+  
+  unless File.exist?(gems_path)
+    puts 'Gem path not found' 
+    return 
+  end
 
   puts 'Updating gem server path'
   `( cd #{gems_path}/ ; git checkout master ; git pull )`
