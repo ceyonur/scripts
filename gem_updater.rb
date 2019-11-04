@@ -17,7 +17,7 @@ def main
                   'major'
                 end
 
-  txt_path = '/home/ceyonur/Documents/bundle_outdated.txt'
+  txt_path = 'bundle_outdated_sample.txt'
   File.readlines(txt_path).drop(1).each do |line|
     if line[0] == selected_update
       split = line.split('(')
