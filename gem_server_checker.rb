@@ -42,9 +42,15 @@ def main
   substr = "gems"
   dir = gems_path
   dir.slice!(gems_path.rindex(substr), substr.size)
+  puts 'Do you want fetch all games then update the gem server? (Y/N)'
+  confirm_all = gets.chomp
   Dir.chdir(dir){
     puts "Run this command:"
-    puts "cd #{dir} && wait; " + results[:not_found].map{ |gem| "./add_gem #{gem}" }.join(' & wait; ')
+    if  confirm.casecmp('Y') == 0
+      puts "cd #{dir} && wait; " + results[:not_found].map{ |gem| "gem fetch #{gem.split(' ').first} -v #{gem.split(' ')[1]}" }.join(' & wait; ')
+    else
+      puts "cd #{dir} && wait; " + results[:not_found].map{ |gem| "./add_gem #{gem}" }.join(' & wait; ')
+    end
   }
 end
 
